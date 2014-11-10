@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../../resources/template.xhtml">
+            <ui:define name="content">
+                <p:messages closable="true" autoUpdate="true" />
+                <h:form>
+                    <div class="page-header">Detalhes do Aluno</div>
+                    <p:panel header="Dados Pessoais" style="margin-bottom: 10px">
+                        <h:panelGrid columns="2" cellpadding="5" >
+                            <p:outputLabel for="nome" value="Nome: " />
+                            <p:outputLabel id="nome" value="#{alunoBean.aluno.nome}" />                            
+
+                            <p:outputLabel for="dataNascimento" value="Data de Nascimento: " />
+                            <h:outputText id="dataNascimento" value="#{alunoBean.aluno.dataNascimento}" >
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText> 
+                            
+                            <p:outputLabel for="cpf" value="CPF :" />
+                            <h:outputLabel id="cpf" value="#{alunoBean.maskCpf}"/>
+                                                       
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel header="Endereço" style="margin-bottom: 10px">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="rua" value="Rua: " />
+                            <p:outputLabel id="rua" value="#{alunoBean.aluno.endereco.rua}" />
+
+                            <p:outputLabel for="bairro" value="Bairro: " />
+                            <p:outputLabel id="bairro" value="#{alunoBean.aluno.endereco.bairro}" />
+
+                            <p:outputLabel for="cidade" value="Cidade: " />
+                            <p:outputLabel id="cidade" value="#{alunoBean.aluno.endereco.cidade}" />
+
+                            <p:outputLabel for="cep" value="CEP: " />
+                            <p:outputLabel id="cep" value="#{alunoBean.aluno.endereco.cep}" />
+                            
+                            <p:outputLabel for="telefone" value="Telefone: " />
+                            <p:outputLabel id="telefone" value="#{alunoBean.aluno.endereco.telefone}" />
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel header="Ações">
+                        <p:commandButton action="#{alunoBean.pageListar()}" value="Voltar" />                       
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

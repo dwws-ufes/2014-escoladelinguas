@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<body>
+		<ui:composition>
+			<div class="header">
+				<div class="wrap">
+					<div class="logo">
+						<a href="index.xhtml"><img src="#{request.contextPath}/resources/images/logo.png" title="logo" /></a>
+					</div>
+					<div class="top-search-bar">
+						<div class="header-top-nav">
+							<ul>
+								<li><a href="#"><img src="#{request.contextPath}/resources/images/marker1.png" title="livehelp" />Live Help</a></li>
+								<li><a href="#"><img src="#{request.contextPath}/resources/images/marker1.png" title="Blog" />Our Blog</a></li>
+								<li><a href="#"><img src="#{request.contextPath}/resources/images/marker1.png" title="customer report" />customer Report</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="clear"> </div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="header-nav">
+				<div class="wrap">
+					<div class="left-nav">
+						<ul>
+							<li><h:link class="active" outcome="/index" value="Início" /></li>
+							<li><h:link outcome="/views/aluno/listar" value="Alunos" /></li>
+							<li><h:link outcome="/views/professor/listar" value="Professores" /></li>
+							<li><h:link outcome="/views/curso/listar" value="Cursos" /></li>
+							<li><h:link outcome="/views/turma/listar" value="Turmas" /></li>
+							<li><h:link outcome="/views/pesquisaPaises/pesquisar" value="Pesquisar Países" /></li>
+						</ul>
+					</div>
+					<div class="right-social-icons">
+						<ul>
+							<li><a class="icon1" href="#"> </a></li>
+							<li><a class="icon2" href="#"> </a></li>
+							<li><a class="icon3" href="#"> </a></li>
+							<li><a class="icon4" href="#"> </a></li>
+						</ul>
+					</div>
+					<div class="clear"> </div>
+				</div>
+			</div>
+		</ui:composition>
+	</body>
+</html>

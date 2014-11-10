@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<p:messages closable="true" autoUpdate="true" />
+				<h:form id="form">
+					<div class="page-header">Todos os Professores</div>
+					<p:dataTable value="#{professorBean.professores}" var="p" style="margin-bottom: 10px" id="professorGrid">
+						<p:column>
+							<f:facet name="header">Nome</f:facet>
+								#{p.nome}
+						</p:column>
+						<p:column style="width: 200px; text-align: center">
+							<f:facet name="header">Nacionalidade</f:facet>
+								#{p.nacionalidade.label}
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Ações</f:facet>
+							<p:commandLink action="#{professorBean.pageDetalhes()}" value="Detalhes">
+								<f:setPropertyActionListener value="#{p.id}" target="#{professorBean.professorId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{professorBean.pageEditar()}" value="Editar">
+								<f:setPropertyActionListener value="#{p.id}" target="#{professorBean.professorId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{professorBean.actionDeletar()}" value="Deletar" update=":form:professorGrid">
+								<f:setPropertyActionListener value="#{p.id}" target="#{professorBean.professorId}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<p:panel header="Ações">
+						<p:commandButton action="#{professorBean.pageCriar()}" value="Cadastrar Professor" />
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

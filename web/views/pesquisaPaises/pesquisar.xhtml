@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body >
+        <ui:composition template="../../resources/template.xhtml">
+            <ui:define name="content">
+                <p:messages closable="true" autoUpdate="true" />
+                <h:form id="form">
+                    <p:panel  header="Pesquisar países que falam o seguinte idioma" style="margin-bottom:10px;">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="selectedIdioma" value="Idioma:  " />
+                            <h:selectOneMenu id="selectedIdioma" value="#{pesquisaPaisesBean.selectedIdioma}">
+                                <!---->
+                                <p:ajax listener="#{pesquisaPaisesBean.onIdiomaChange()}" update="paises" />                                
+                                <f:selectItem itemLabel="Escolha um idioma" itemValue="" noSelectionOption="true" />                                
+                                <f:selectItems value="#{pesquisaPaisesBean.idiomas}" var="i" itemValue="#{i}" itemLabel="#{i.label}" />                                
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                            
+                            <img src="../../resources/images/ajax-processing.gif" alt=""/>
+                        </p:dialog>
+
+                        <p:separator />
+                        <p:dataGrid var="pais" value="#{pesquisaPaisesBean.listPaisDBPedia}" columns="3"
+                                    rows="12" paginator="true" id="paises"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                                    {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="6,12,18" emptyMessage="" >
+
+                            <f:facet name="header">
+                                Lista de Países
+                            </f:facet>
+
+                            <p:panel header="#{pais.nome}" style="text-align:center">
+                                <h:panelGrid columns="1" style="width:100%">
+                                    <img src="#{pais.urlBandeira}" alt="#{pais.nome}" style="border:1px solid black">                                        
+                                    </img>                                    
+                                    <p:commandLink  update=":form:paisDetail" oncomplete="PF('paisDialog').show()" title="View Detail"  >
+                                        <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />                                        
+                                        <f:setPropertyActionListener value="#{pais}" target="#{pesquisaPaisesBean.selectedPais}"  />
+                                        <p:ajax listener="#{pesquisaPaisesBean.onClickPais(pais)}" update=":form:paisDetail" />
+                                    </p:commandLink>
+                                    <!----> 
+                                </h:panelGrid>
+                            </p:panel>
+
+                        </p:dataGrid>           
+                        <p:dialog header="Informações do País" widgetVar="paisDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false"
+                                  width="98%">
+                            <p:outputPanel id="paisDetail" >
+                                <p:panelGrid columns="2" rendered="#{not empty pesquisaPaisesBean.selectedPais}" columnClasses="label,value">
+                                    <f:facet name="header">
+                                        <img src="#{pesquisaPaisesBean.selectedPais.urlBandeira}" alt="#{pesquisaPaisesBean.selectedPais.nome}" 
+                                             style="border:1px solid black">                                        
+                                        </img>  
+                                    </f:facet>                                   
+
+                                    <h:outputText value="Nome:"/>
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedPais.nome}" />
+
+                                    <h:outputText value="Informações:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedPais.resumo}" />
+
+                                    <h:outputText value="Habitantes:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedPais.populacao}" >
+                                        <f:convertNumber type="number" />
+                                    </h:outputText>
+
+                                    <h:outputText value="Capital:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedCapital.nome}" />
+
+                                    <h:outputText value="Informações Capital:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedCapital.resumo}" />
+
+                                    <h:outputText value="Hab Capital:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedCapital.populacao}" >
+                                        <f:convertNumber type="number" />
+                                    </h:outputText>
+
+                                    <h:outputText value="Moeda:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedMoeda.nome}" />
+
+                                    <h:outputText value="Código:" />
+                                    <h:outputText value="#{pesquisaPaisesBean.selectedMoeda.codigo}" />                                   
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>                        
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

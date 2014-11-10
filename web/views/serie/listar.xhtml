@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<h:form id="form">
+					<div class="page-header">Todas as Séries</div>
+					<p:dataTable value="#{serieBean.curso.series}" var="s" style="margin-bottom: 10px" id="gridSeries">
+						<p:column>
+							<f:facet name="header">Código</f:facet>
+								#{s.codigo}
+						</p:column>
+						<p:column>
+							<f:facet name="header">Nível</f:facet>
+								#{s.nivel.label}
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Ações</f:facet>
+							<p:commandLink action="#{serieBean.pageDetalhes()}" value="Detalhes">
+								<f:setPropertyActionListener value="#{s.id}" target="#{serieBean.serieId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{serieBean.pageEditar()}" value="Editar">
+								<f:setPropertyActionListener value="#{s.id}" target="#{serieBean.serieId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{serieBean.actionDeletar()}" value="Deletar" update=":form:gridSeries">
+								<f:setPropertyActionListener value="#{s.id}" target="#{serieBean.serieId}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<p:panel header="Ações">
+						<p:commandButton action="#{cursoBean.pageListar()}" value="Voltar" />
+						<p:commandButton action="#{serieBean.pageCriar()}" value="Criar Série">
+							<f:param name="cursoId" value="#{serieBean.curso.id}" />
+						</p:commandButton>
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<p:messages closable="true" autoUpdate="true" />
+				<h:form id="form">
+					<div class="page-header">Todas as Turmas</div>
+					<p:dataTable value="#{turmaBean.turmas}" var="t" style="margin-bottom: 10px" id="gridTurmas">
+						<p:column style="text-align: center; width: 50px">
+							<f:facet name="header">Código</f:facet>
+								#{t.codigo}
+						</p:column>
+						<p:column>
+							<f:facet name="header">Curso</f:facet>
+								#{t.serie.curso.titulo}
+						</p:column>
+						<p:column style="text-align: center; width: 150px">
+							<f:facet name="header">Nível</f:facet>
+								#{t.serie.nivel.label}
+						</p:column>
+						<p:column style="text-align: center; width: 70px">
+							<f:facet name="header">Vagas</f:facet>
+								#{t.vagas}
+						</p:column>
+						<p:column style="text-align: center; width: 100px">
+							<f:facet name="header">Horário</f:facet>
+								#{t.horario}
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Professor</f:facet>
+								#{t.professor.nome}
+						</p:column>
+						<p:column style="text-align: center; width: 100px">
+							<f:facet name="header">Matrícula</f:facet>
+							<p:commandLink action="#{matriculaBean.pageMatricular()}" value="Matrícular">
+								<f:setPropertyActionListener value="#{t.id}" target="#{matriculaBean.turmaId}" />
+							</p:commandLink>
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Ações</f:facet>
+							<p:commandLink action="#{turmaBean.pageDetalhes()}" value="Detalhes">
+								<f:setPropertyActionListener value="#{t.id}" target="#{turmaBean.turmaId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{turmaBean.pageEditar()}" value="Editar">
+								<f:setPropertyActionListener value="#{t.id}" target="#{turmaBean.turmaId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{turmaBean.actionDeletar()}" value="Deletar" update=":form:gridTurmas">
+								<f:setPropertyActionListener value="#{t.id}" target="#{turmaBean.turmaId}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<p:panel header="Ações">
+						<p:commandButton action="#{turmaBean.pageCriar()}" value="Cadastrar Turma" />
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

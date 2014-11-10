@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+		<link href="#{request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css"  media="all" />
+		<link href="#{request.contextPath}/resources/css/responsiveslides.css" rel="stylesheet" type="text/css" />
+		<link href="#{request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet' type='text/css' />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+		<script src="#{request.contextPath}/resources/js/responsiveslides.min.js"></script>
+		<script>
+			// You can also use "$(window).load(function() {"
+			$(function() {
+
+				// Slideshow 1
+				$("#slider1").responsiveSlides({
+					maxwidth: 1600,
+					speed: 600
+				});
+			});
+		</script>
+	</h:head>
+	<h:body>
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+		</ui:insert>
+
+		<ui:insert id="content" name="content">
+			<ui:include src="content.xhtml" />
+		</ui:insert>
+
+		<ui:insert name="footer">
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
+	</h:body>
+</html>
+

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	<h:head>
+
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<p:messages closable="true" autoUpdate="true" />
+				<h:form id="form">
+					<div class="page-header">Todos os Cursos</div>
+					<p:dataTable value="#{cursoBean.cursos}" var="c" style="margin-bottom: 10px" id="gridCursos">
+						<p:column>
+							<f:facet name="header">Curso</f:facet>
+								#{c.titulo}
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Idioma ensinado</f:facet>
+								#{c.idioma.label}
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Series</f:facet>
+							<p:commandLink action="#{serieBean.pageListar()}" value="Ver Séries">
+								<f:setPropertyActionListener value="#{c.id}" target="#{serieBean.cursoId}" />
+							</p:commandLink>
+						</p:column>
+						<p:column style="text-align: center; width: 200px">
+							<f:facet name="header">Ações</f:facet>
+							<p:commandLink action="#{cursoBean.pageDetalhes()}" value="Detalhes">
+								<f:setPropertyActionListener value="#{c.id}" target="#{cursoBean.cursoId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{cursoBean.pageEditar()}" value="Editar">
+								<f:setPropertyActionListener value="#{c.id}" target="#{cursoBean.cursoId}" />
+							</p:commandLink>
+							<span> | </span>
+							<p:commandLink action="#{cursoBean.actionDeletar()}" value="Deletar" update=":form:gridCursos">
+								<f:setPropertyActionListener value="#{c.id}" target="#{cursoBean.cursoId}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<p:panel header="Ações">
+						<p:commandButton action="#{cursoBean.pageCriar()}" value="Cadastrar Curso" />
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

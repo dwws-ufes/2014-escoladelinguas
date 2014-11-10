@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<p:messages closable="true" autoUpdate="true" />
+				<h:form>
+					<div class="page-header">Editar Turma</div>
+					<p:panel header="Dados da Turma" style="margin-bottom: 10px">
+						<h:panelGrid columns="3" cellpadding="5">
+							<p:outputLabel for="codigo" value="Código" />
+							<p:inputText id="codigo" value="#{turmaBean.turma.codigo}" />
+							<p:message for="codigo" />
+
+							<p:outputLabel for="vagas" value="Vagas" />
+							<p:inputText id="vagas" value="#{turmaBean.turma.vagas}" />
+							<p:message for="vagas" />
+
+							<p:outputLabel for="horario" value="Horário da Aula" />
+							<p:inputText id="horario" value="#{turmaBean.turma.horario}" />
+							<p:message for="horario" />
+
+							<p:outputLabel for="curso" value="Escolha o curso" />
+							<h:selectOneMenu id="curso" value="#{turmaBean.cursoSelecionadoId}">
+								<f:selectItem itemValue="#{turmaBean.cursoSelecionadoId}" itemLabel="#{turmaBean.turma.serie.curso.titulo}" />
+								<f:selectItems value="#{cursoBean.cursos}" var="c" itemValue="#{c.id}" itemLabel="#{c.titulo}" />
+								<p:ajax event="change" listener="#{turmaBean.carregaSeriesProfessoresDisponiveis}" update="serie, professor" />
+							</h:selectOneMenu>
+							<p:message for="curso" />
+
+							<p:outputLabel for="serie" value="Escolha a série" />
+							<h:selectOneMenu id="serie" value="#{turmaBean.turma.serie}">
+								<f:selectItem itemValue="#{turmaBean.serieSelecionadaId}" itemLabel="#{turmaBean.turma.serie.codigo}" />
+								<f:selectItems value="#{turmaBean.seriesDisponiveis}" var="s" itemValue="#{s.id}" itemLabel="#{s.codigo} - #{s.nivel}" />
+							</h:selectOneMenu>
+							<p:message for="serie" />
+
+							<p:outputLabel for="professor" value="Escolha o professor" />
+							<h:selectOneMenu id="professor" value="#{turmaBean.turma.professor}">
+								<f:selectItem itemValue="#{turmaBean.professorSelecionadoId}" itemLabel="#{turmaBean.turma.professor.nome}" />
+								<f:selectItems value="#{turmaBean.professoresDisponiveis}" var="p" itemValue="#{p.id}" itemLabel="#{p.nome}" />
+							</h:selectOneMenu>
+							<p:message for="professor" />
+
+							<h:inputHidden id="id" value="#{turmaBean.turma.id}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Ações">
+						<p:commandButton action="#{turmaBean.pageListar()}" value="Voltar" />
+						<p:commandButton action="#{turmaBean.actionEditar()}" value="Atualizar Turma" />
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

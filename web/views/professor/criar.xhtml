@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<h:outputScript library="js" name="professor.criar.js" target="body" />
+				<p:messages closable="true" autoUpdate="true" />
+				<h:form id="professorForm">
+					<div class="page-header">Cadastrar Professor</div>
+					<p:panel header="Dados Pessoais" style="margin-bottom: 10px">
+						<h:panelGrid columns="3" cellpadding="5">
+							<p:outputLabel for="nome" value="Nome" />
+							<p:inputText id="nome" value="#{professorBean.professor.nome}" />
+							<p:message for="nome" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Endereço" style="margin-bottom: 10px">
+						<h:panelGrid columns="3" cellpadding="5">
+							<p:outputLabel for="rua" value="Rua" />
+							<p:inputText id="rua" value="#{professorBean.professor.endereco.rua}" />
+							<p:message for="rua" />
+
+							<p:outputLabel for="bairro" value="Bairro" />
+							<p:inputText id="bairro" value="#{professorBean.professor.endereco.bairro}" />
+							<p:message for="bairro" />
+
+							<p:outputLabel for="cidade" value="Cidade" />
+							<p:inputText id="cidade" value="#{professorBean.professor.endereco.cidade}" />
+							<p:message for="cidade" />
+
+							<p:outputLabel for="cep" value="CEP" />
+							<p:inputText id="cep" value="#{professorBean.professor.endereco.cep}" />
+							<p:message for="cep" />
+
+							<p:outputLabel for="telefone" value="Telefone" />
+							<p:inputText id="telefone" value="#{professorBean.professor.endereco.telefone}" />
+							<p:message for="telefone" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Formação" style="margin-bottom: 10px">
+						<h:panelGrid columns="3" cellpadding="5">
+							<p:outputLabel for="formacao" value="Formação" />
+							<h:selectOneMenu id="formacao" value="#{professorBean.professor.formacao}">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItems value="#{professorBean.formacao}" var="f" itemValue="#{f}" itemLabel="#{f.label}"></f:selectItems>
+							</h:selectOneMenu>
+							<p:message for="formacao" />
+
+							<p:outputLabel for="nacionalidade" value="Nacionalidade" />
+							<h:selectOneMenu id="nacionalidade" value="#{professorBean.professor.nacionalidade}">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItems value="#{professorBean.nacionalidades}" var="n" itemValue="#{n}" itemLabel="#{n.label}"></f:selectItems>
+							</h:selectOneMenu>
+							<p:message for="nacionalidade" />
+						</h:panelGrid>
+						<div id="brasileiro">
+							<h:panelGrid columns="3" cellpadding="5">
+								<p:outputLabel for="instituicao" value="Instituição" />
+								<p:inputText id="instituicao" value="#{professorBean.professor.instituicao}" />
+								<p:message for="instituicao" />
+							</h:panelGrid>
+						</div>
+						<div id="estrangeiro">
+							<h:panelGrid columns="3" cellpadding="5">
+								<h:outputLabel for="idioma" value="Idioma" />
+								<h:selectOneMenu id="idioma" value="#{professorBean.professor.idioma}" >
+									<f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItems value="#{professorBean.idiomas}" var="i" itemValue="#{i}" itemLabel="#{i.label}" />
+								</h:selectOneMenu>
+								<p:message for="idioma" />
+
+								<p:outputLabel for="pais" value="País de Origem" />
+								<p:inputText id="pais" value="#{professorBean.professor.pais}" />
+								<p:message for="pais" />
+							</h:panelGrid>
+						</div>
+					</p:panel>
+					<p:panel header="Cursos" style="margin-bottom: 10px">
+						<p:selectManyCheckbox value="#{professorBean.cursosSelecionados}" layout="grid" columns="1">
+							<f:selectItems value="#{cursoBean.cursos}" var="c" itemValue="#{c.id}" itemLabel="#{c.titulo}" />
+						</p:selectManyCheckbox>
+					</p:panel>
+					<p:panel header="Ações">
+						<p:commandButton action="#{professorBean.pageListar()}" value="Voltar" />
+						<p:commandButton action="#{professorBean.actionSalvar}" value="Salvar" />
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

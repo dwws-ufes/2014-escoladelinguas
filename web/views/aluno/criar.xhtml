@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+
+	</h:head>
+	<h:body>
+		<ui:composition template="../../resources/template.xhtml">
+			<ui:define name="content">
+				<script>
+					PrimeFaces.locales['pt_BR'] = {
+						closeText: 'Fechar',
+						prevText: 'Anterior',
+						nextText: 'Próximo',
+						currentText: 'Começo',
+						monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+						monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+						dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+						dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+						dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+						weekHeader: 'Semana',
+						firstDay: 0,
+						isRTL: false,
+						showMonthAfterYear: false,
+						yearSuffix: '',
+						timeOnlyTitle: 'Só Horas',
+						timeText: 'Tempo',
+						hourText: 'Hora',
+						minuteText: 'Minuto',
+						secondText: 'Segundo',
+						ampm: false,
+						month: 'Mês',
+						week: 'Semana',
+						day: 'Dia',
+						allDayText: 'Todo o Dia'
+					};
+				</script>
+				<p:messages closable="true" autoUpdate="true" />
+				<h:form>
+					<div class="page-header">Cadastrar Aluno</div>
+					<p:panel header="Dados Pessoais" style="margin-bottom: 10px">
+						<h:panelGrid columns="3" cellpadding="10">
+							<p:outputLabel for="nome" value="Nome" />
+							<p:inputText id="nome" value="#{alunoBean.aluno.nome}" />
+							<p:message for="nome" />
+
+							<p:outputLabel for="dataNascimento" value="Data de Nascimento" />
+							<p:calendar id="dataNascimento" value="#{alunoBean.aluno.dataNascimento}" pattern="dd/mm/yyyy" locale="pt_BR" />
+							<p:message for="dataNascimento" />
+
+							<p:outputLabel for="cpf" value="CPF" />
+							<p:inputMask id="cpf" mask="999.999.999-99" value="#{alunoBean.aluno.cpf}">
+								<f:converter converterId="CPFConverter" />
+								<f:validator validatorId="CPFValidator" />
+							</p:inputMask>
+							<p:message for="cpf" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Endereço" style="margin-bottom: 10px">
+						<h:panelGrid columns="3" cellpadding="5">
+							<p:outputLabel for="rua" value="Rua" />
+							<p:inputText id="rua" value="#{alunoBean.aluno.endereco.rua}" />
+							<p:message for="rua" />
+
+							<p:outputLabel for="bairro" value="Bairro" />
+							<p:inputText id="bairro" value="#{alunoBean.aluno.endereco.bairro}" />
+							<p:message for="bairro" />
+
+							<p:outputLabel for="cidade" value="Cidade" />
+							<p:inputText id="cidade" value="#{alunoBean.aluno.endereco.cidade}" />
+							<p:message for="cidade" />
+
+							<p:outputLabel for="cep" value="CEP" />
+							<p:inputText id="cep" value="#{alunoBean.aluno.endereco.cep}" />
+							<p:message for="cep" />
+
+							<p:outputLabel for="telefone" value="Telefone" />
+							<p:inputText id="telefone" value="#{alunoBean.aluno.endereco.telefone}" />
+							<p:message for="telefone" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Ações">
+						<p:commandButton action="#{alunoBean.pageListar()}" value="Voltar" immediate="true" />
+						<p:commandButton action="#{alunoBean.actionSalvar()}" value="Salvar" />
+					</p:panel>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

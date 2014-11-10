@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../../resources/template.xhtml">
+            <ui:define name="content">
+                <p:messages closable="true" autoUpdate="true" />
+                <h:form>
+                    <div class="page-header">Todos os Alunos</div>
+                    <p:dataTable value="#{alunoBean.alunos}" var="a" style="margin-bottom: 10px">
+                        <p:column>
+                            <f:facet name="header">Nome</f:facet>
+                                #{a.nome}
+                        </p:column>
+                        <p:column style="text-align: center; width: 150px">
+                            <f:facet name="header">Data de Nascimento</f:facet>
+                            <h:outputText value="#{a.dataNascimento}">
+                                <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="text-align: center; width: 200px">
+                            <f:facet name="header">CPF</f:facet>
+                            #{a.cpf.subSequence(0, 3)}.#{a.cpf.subSequence(3, 6)}.#{a.cpf.subSequence(6, 9)}-#{a.cpf.subSequence(9, 11)}
+                        </p:column>
+                        <p:column style="text-align: center; width: 200px">
+                            <f:facet name="header">Ações</f:facet>
+                            <p:commandLink action="#{alunoBean.pageDetalhes()}" value="Detalhes">
+                                <f:setPropertyActionListener value="#{a.id}" target="#{alunoBean.alunoId}" />
+                            </p:commandLink>
+                            <span> | </span>
+                            <p:commandLink action="#{alunoBean.pageEditar()}" value="Editar">
+                                <f:setPropertyActionListener value="#{a.id}" target="#{alunoBean.alunoId}" />
+                            </p:commandLink>
+                            <span> | </span>
+                            <h:commandLink action="#{alunoBean.actionDeletar()}" value="Deletar">
+                                <f:setPropertyActionListener value="#{a.id}" target="#{alunoBean.alunoId}" />
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:panel header="Ações">
+                        <p:commandButton action="#{alunoBean.pageCriar()}" value="Cadastrar Aluno" />
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

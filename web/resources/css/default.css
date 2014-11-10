@@ -1,0 +1,11 @@
+
+.header-nav ~ form {
+	font-size: 12px;
+	margin: 20px;
+}
+
+.page-header {
+	font-family: Ropa Sans;
+	font-size: 24px;
+	color: darkcyan;
+}
